@@ -35,7 +35,22 @@ def max_row(file):
 def insert_col(file,data,pos=0):    
     file[0].insert(pos,data)
 
-#Returns the value of the Cell. Note that starts with 0 instead of 1
+#Returns the value of the coords. Note that starts with 0 instead of 1
 
 def get_value(file,col,row):
     return file[col][row]
+
+#Finds for a value, if its in any place returns the coords
+
+def find_value(file,value):
+    d = list()
+    
+    for c in range(max_column(file)-1):
+        for l in range(max_row(file)-1):
+            if get_value(file,c,l)==value:
+                d.append(c)
+                d.append(l)
+    if d:
+        return d
+    else:
+        return False
