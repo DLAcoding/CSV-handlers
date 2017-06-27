@@ -1,15 +1,7 @@
 #!/usr/bin/python
 
-#Open the file and cleans the white lines if has
-
-def read_file(file):
-
-    open_csv_file= open(file,"r")
-    csv_file=list(csv.reader(open_csv_file))
-    return clean_empty(csv_file)
-
-#cleans the empty lines
-
+import csv
+#Used for files that has empty lines at the begining
 def clean_empty(lista):    
     c = list()
     for a in lista:
@@ -17,25 +9,29 @@ def clean_empty(lista):
             c.append(a)
     return c
 
-#Delete the "comma" and makes the file accesible. By default if the char is not specified ";" is what deletes. 
+def read_file(file,delimit=";"):
 
-def fix_file(lista,delimiter=";"):
-    c = list()
-    for a in lista:
-        b = a[0].split(delimiter)
-        c.append(b)
-    return c    
+    open_csv_file= open(file,"r")
+    csv_file=list(csv.reader(open_csv_file,delimiter=delimit))
+    open_csv_file.close()
+    return clean_cell_space(clean_empty(csv_file))
 
-#Delete the "comma" and makes the file accesible. By default if the char is not specified ";" is what deletes. 
+#checks all the chars in the list, if a \n is found it deletes it
+def clean_cell_space(file):
+    c=list(file)
+    d=""
+    for i in range(len(file)):
+        for j in range(len(file[0])):
+            a=get_value(file,i,j)
+            if "\n" in a:
+                
+                for char in a:
+                    if char!="\n":
+                        d +=char
+                write_cell(c,d,j,i)
+                d=""
 
-def fix_file(lista,delimiter=";"):
-    c = list()
-    for a in lista:
-        b = a[0].split(sep)
-        c.append(b)
-    return c    
-
-#WITH THE FILE FIX AND FIRST LINE IS THE HEADERS....
+    return(c)
 
 #Return number of columns with header
 
@@ -49,8 +45,19 @@ def max_row(file):
 
 #Inserts a new column in a specific position. If the position is not specified it's added at the beginning.
 
-def insert_col(file,data,pos=0):    
-    file[0].insert(pos,data)
+def insert_col(file,name,pos=0):      
+    for i in range(len(file)):
+        if i==0:
+            file[0].insert(pos,name)
+        else:
+            file[i].insert(pos,"")
+
+def get_col(file, col):
+    c=[]
+    for row in file:
+        c.append(row[col])
+    return c
+
 
 #Returns the value of the coords. Note that starts with 0 instead of 1
 
@@ -71,3 +78,27 @@ def find_value(file,value):
         return d
     else:
         return False
+
+#Writes a CSV file from a list with format [["NAME;SURNAME;AGE"],["DLA;CODING;LOS ANGELES"]]
+
+
+
+def write_text_file(new_file_name,list):
+
+    text_file = open(new_file_name,"w")
+    for i in range(len(list)):
+        for j in range(len(list[i])):
+            text_file.write(list[i][j]+";")
+        text_file.write("\n")
+    text_file.close()
+
+def write_cell(list,value,col,row):
+
+    list[row][col]=value
+
+
+
+
+
+
+
