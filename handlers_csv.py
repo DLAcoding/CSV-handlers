@@ -1,5 +1,13 @@
 #!/usr/bin/python
 
+#Open the file and cleans the white lines if has
+
+def read_file(file):
+
+    open_csv_file= open(file,"r")
+    csv_file=list(csv.reader(open_csv_file))
+    return clean_empty(csv_file)
+
 #cleans the empty lines
 
 def clean_empty(lista):    
@@ -8,6 +16,15 @@ def clean_empty(lista):
         if a:
             c.append(a)
     return c
+
+#Delete the "comma" and makes the file accesible. By default if the char is not specified ";" is what deletes. 
+
+def fix_file(lista,delimiter=";"):
+    c = list()
+    for a in lista:
+        b = a[0].split(delimiter)
+        c.append(b)
+    return c    
 
 #Delete the "comma" and makes the file accesible. By default if the char is not specified ";" is what deletes. 
 
