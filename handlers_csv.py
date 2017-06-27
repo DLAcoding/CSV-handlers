@@ -35,3 +35,7 @@ def max_row(file):
 def insert_col(file,data,pos=0):    
     file[0].insert(pos,data)
 
+#Returns the value of the Cell. Note that starts with 0 instead of 1
+
+def get_value(file,col,row):
+    return file[col][row]
