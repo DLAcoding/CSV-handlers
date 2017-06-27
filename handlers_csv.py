@@ -11,7 +11,7 @@ def clean_empty(lista):
 
 #Delete the "comma" and makes the file accesible. By default if the char is not specified ";" is what deletes. 
 
-def fix_file(lista,sep=";"):
+def fix_file(lista,delimiter=";"):
     c = list()
     for a in lista:
         b = a[0].split(sep)
