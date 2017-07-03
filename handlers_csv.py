@@ -71,3 +71,13 @@ def find_value(file,value):
         return d
     else:
         return False
+
+# Inserts a row. By default it inserts it at the last position
+def insert_row(lista,pos=0):
+    if pos==0:
+        pos=len(lista)
+    aux=[]
+    for i in range(len(lista[0])):
+        aux.append("")
+    lista.insert(pos,aux)
+  
