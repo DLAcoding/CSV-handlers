@@ -77,6 +77,10 @@ def insert_row(lista,pos=0):
     if pos==0:
         pos=len(lista)
     aux=[]
+#Returns the row select.
+
+def get_row(lista,row):
+    return(lista[row])
     for i in range(len(lista[0])):
         aux.append("")
     lista.insert(pos,aux)
